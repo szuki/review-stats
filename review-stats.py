@@ -17,13 +17,13 @@ def main(args):
     print 'Done.'
     activities = req.json()['activity']
     unique_reviews = {}
-    past = datetime.date.today() - datetime.timedelta(days=5)
+    past = datetime.date.today() - datetime.timedelta(days=7)
     unique = set()
     
     for a in activities:
-        if a['gerrit_id'] in unique:
+        if a['parent_url'] in unique:
             continue
-        unique.add(a['gerrit_id'])
+        unique.add(a['parent_url'])
         adate = datetime.date.fromtimestamp(a['date'])
         if adate > past:
             unique_reviews.setdefault(adate, []).append(a['parent_url'])
