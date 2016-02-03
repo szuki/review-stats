@@ -17,7 +17,7 @@ def main(args):
     print 'Done.'
     activities = req.json()['activity']
     unique_reviews = {}
-    past = datetime.date.today() - datetime.timedelta(days=7)
+    past = datetime.date.today() - datetime.timedelta(days=5)
     unique = set()
     
     for a in activities:
@@ -27,9 +27,10 @@ def main(args):
         adate = datetime.date.fromtimestamp(a['date'])
         if adate > past:
             unique_reviews.setdefault(adate, []).append(a['parent_url'])
-    for k,v in unique_reviews.iteritems():
+    keys = sorted(unique_reviews.keys())
+    for k in keys:
         print k
-        for e in v:
+        for e in unique_reviews[k]:
             print e
 
 
